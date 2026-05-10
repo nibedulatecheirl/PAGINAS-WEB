@@ -63,6 +63,48 @@
      3. ESTILOS .nt-particle — inyectados siempre (hero + CTAs)
   ============================================================ */
 
+  /* ============================================================
+     2B. TILT 3D - tarjetas y paneles con [data-tilt]
+  ============================================================ */
+
+  if (!prefersReduced && window.matchMedia('(pointer: fine)').matches) {
+    const tiltSelector = [
+      '[data-tilt]',
+      '.feature-card',
+      '.usecase-item',
+      '.service-usecases__aside',
+      '.proceso__step-card',
+      '.problema-card',
+      '.qs-pillar',
+    ].join(',');
+
+    document.querySelectorAll(tiltSelector).forEach((el) => {
+      let rafId = null;
+
+      function setTilt(event) {
+        const rect = el.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        const rx = (y * -6).toFixed(2);
+        const ry = (x * 7).toFixed(2);
+
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          el.style.transform = `perspective(1100px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+        });
+      }
+
+      function resetTilt() {
+        if (rafId) cancelAnimationFrame(rafId);
+        el.style.transform = '';
+      }
+
+      el.addEventListener('pointermove', setTilt, { passive: true });
+      el.addEventListener('pointerleave', resetTilt, { passive: true });
+      el.addEventListener('blur', resetTilt, true);
+    });
+  }
+
   if (prefersReduced) return;
 
   const particleStyle = document.createElement('style');

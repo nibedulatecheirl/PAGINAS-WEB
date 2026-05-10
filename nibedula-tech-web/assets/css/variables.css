@@ -36,6 +36,8 @@
   --color-success:       #28c840;
   --color-warning:       #febc2e;
   --color-error:         #dc5c5c;
+  --color-signal:        #f59e0b;
+  --color-electric:      #4f8cff;
 
   /* --- Tipografía --- */
   --font-body:    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

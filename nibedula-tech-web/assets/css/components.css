@@ -210,7 +210,16 @@
 @media (max-width: 768px) {
   .navbar__toggle {
     display: flex;
+    margin-left: auto;
     z-index: 10;
+  }
+
+  .navbar__brand {
+    min-width: 0;
+  }
+
+  .navbar__name {
+    font-size: 0.95rem;
   }
 
   .navbar__menu {
@@ -413,11 +422,17 @@
 .badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  max-width: 100%;
   padding: var(--space-1) var(--space-3);
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
+  line-height: 1.35;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
   border-radius: var(--radius-full);
   border: 1px solid;
   background-color: rgba(13,100,112,0.1);

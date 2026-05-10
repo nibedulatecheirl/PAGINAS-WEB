@@ -17,7 +17,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="NIBEDULA TECH | Tecnología que transforma tu empresa">
   <meta property="og:description" content="Desarrollamos software a medida, automatizamos procesos y conectamos tus sistemas para que puedas enfocarte en hacer crecer tu negocio.">
-  <meta property="og:image" content="https://www.nibedulatech.com/assets/img/og/og-image.png">
+  <meta property="og:image" content="https://www.nibedulatech.com/assets/img/og/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://www.nibedulatech.com/">
@@ -28,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NIBEDULA TECH | Tecnología que transforma tu empresa">
   <meta name="twitter:description" content="Software a medida, automatización e integración de sistemas para empresas en Perú.">
-  <meta name="twitter:image" content="https://www.nibedulatech.com/assets/img/og/og-image.png">
+  <meta name="twitter:image" content="https://www.nibedulatech.com/assets/img/og/og-image.svg">
 
   <!-- Favicon y manifest -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -170,7 +170,7 @@
 
           <h1 class="hero__title" id="hero-title">
             Tecnología que<br>
-            <span class="hero__title-gradient">transforma tu empresa</span>
+            <span class="hero__title-gradient">transforma tu<br>empresa</span>
           </h1>
 
           <p class="hero__subtitle">
@@ -215,12 +215,16 @@
         </div>
 
         <div class="hero__visual" aria-hidden="true">
+          <div class="hero__webgl" id="hero-webgl" aria-hidden="true"></div>
           <div class="hero__3d-scene" aria-hidden="true">
             <div class="hero__ring hero__ring--1"></div>
             <div class="hero__ring hero__ring--2"></div>
             <div class="hero__ring hero__ring--3"></div>
             <div class="hero__ring hero__ring--4"></div>
           </div>
+          <div class="hero__signal hero__signal--1">API</div>
+          <div class="hero__signal hero__signal--2">BI</div>
+          <div class="hero__signal hero__signal--3">ERP</div>
           <img
             src="assets/img/hero/hero-illustration.svg"
             alt=""
@@ -413,7 +417,7 @@
         <header class="section-header" data-animate="fade-up">
           <span class="badge">Nuestros servicios</span>
           <h2 class="section-title" id="servicios-title">
-            Todo lo que tu empresa<br>necesita para escalar
+            Todo lo que tu empresa<br><span class="title-accent">necesita para escalar</span>
           </h2>
           <p class="section-subtitle">
             Software, automatización, integraciones, BI e importaciones.
@@ -423,7 +427,7 @@
 
         <div class="servicios__grid" role="list">
 
-          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="0" style="--svc-bg: url('assets/img/servicios/software-bg.jpg')">
+          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="0" data-tilt style="--svc-bg: url('/assets/img/servicios/software-bg.jpg')">
             <div class="service-card__bg" aria-hidden="true"></div>
             <div class="service-card__content">
               <div class="service-card__icon" aria-hidden="true">
@@ -445,7 +449,7 @@
             </div>
           </article>
 
-          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="100" style="--svc-bg: url('assets/img/servicios/automatizacion-bg.jpg')">
+          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="100" data-tilt style="--svc-bg: url('/assets/img/servicios/automatizacion-bg.jpg')">
             <div class="service-card__bg" aria-hidden="true"></div>
             <div class="service-card__content">
               <div class="service-card__icon" aria-hidden="true">
@@ -467,7 +471,7 @@
             </div>
           </article>
 
-          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="200" style="--svc-bg: url('assets/img/servicios/integraciones-bg.jpg')">
+          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="200" data-tilt style="--svc-bg: url('/assets/img/servicios/integraciones-bg.jpg')">
             <div class="service-card__bg" aria-hidden="true"></div>
             <div class="service-card__content">
               <div class="service-card__icon" aria-hidden="true">
@@ -489,7 +493,7 @@
             </div>
           </article>
 
-          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="300" style="--svc-bg: url('assets/img/servicios/bi-reportes-bg.jpg')">
+          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="300" data-tilt style="--svc-bg: url('/assets/img/servicios/bi-reportes-bg.jpg')">
             <div class="service-card__bg" aria-hidden="true"></div>
             <div class="service-card__content">
               <div class="service-card__icon" aria-hidden="true">
@@ -511,7 +515,7 @@
             </div>
           </article>
 
-          <article class="service-card service-card--highlight" role="listitem" data-animate="fade-up" data-delay="400" style="--svc-bg: url('assets/img/servicios/importaciones-bg.jpg')">
+          <article class="service-card service-card--highlight" role="listitem" data-animate="fade-up" data-delay="400" data-tilt style="--svc-bg: url('/assets/img/servicios/importaciones-bg.jpg')">
             <div class="service-card__bg" aria-hidden="true"></div>
             <div class="service-card__content">
               <div class="service-card__icon" aria-hidden="true">
@@ -548,6 +552,68 @@
             >
               Escribir por WhatsApp
             </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NOTIFICACIONES INTELIGENTES
+    ============================================================ -->
+    <section class="notificaciones" id="notificaciones" aria-labelledby="notificaciones-title">
+      <div class="container">
+        <div class="notificaciones__inner">
+
+          <div class="notificaciones__content" data-animate="slide-right">
+            <span class="badge">Alertas inteligentes</span>
+            <h2 class="section-title" id="notificaciones-title">
+              Notificaciones que<br><span class="title-accent">activan decisiones a tiempo</span>
+            </h2>
+            <p class="section-subtitle">
+              Diseñamos alertas para procesos críticos: pedidos, inventario, reportes,
+              integraciones y aprobaciones. El equipo recibe señales claras justo cuando
+              debe actuar.
+            </p>
+            <div class="notificaciones__chips" aria-label="Canales de notificación">
+              <span>WhatsApp</span>
+              <span>Correo</span>
+              <span>Dashboard</span>
+              <span>API</span>
+            </div>
+          </div>
+
+          <div class="notificaciones__visual" data-animate="slide-left" data-delay="150" data-tilt aria-hidden="true">
+            <div class="notificaciones__photo">
+              <img
+                src="assets/img/servicios/bi-reportes-bg.jpg"
+                alt=""
+                width="640"
+                height="420"
+                loading="lazy"
+              >
+            </div>
+            <div class="notification-card notification-card--one">
+              <span class="notification-card__dot"></span>
+              <div>
+                <strong>Reporte listo</strong>
+                <p>BI actualizado hace 2 min</p>
+              </div>
+            </div>
+            <div class="notification-card notification-card--two">
+              <span class="notification-card__dot notification-card__dot--warning"></span>
+              <div>
+                <strong>Stock crítico</strong>
+                <p>Alerta enviada al equipo</p>
+              </div>
+            </div>
+            <div class="notification-card notification-card--three">
+              <span class="notification-card__dot notification-card__dot--success"></span>
+              <div>
+                <strong>Integración activa</strong>
+                <p>Sincronización completada</p>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -1015,6 +1081,7 @@
   <script src="assets/js/faq.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
   <script src="assets/js/contact.js" defer></script>
+  <script type="module" src="assets/js/three-scene.js"></script>
 
 </body>
 </html>
