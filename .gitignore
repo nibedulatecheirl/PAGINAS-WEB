@@ -1,0 +1,6 @@
+# Ignore files and directories related to Claude
+CLAUDE.md
+.vscode/
+.idea/
+.claude/
+.claude_cache/
