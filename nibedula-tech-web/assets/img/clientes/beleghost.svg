@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" role="img" aria-label="Beleghost">
-  <rect width="160" height="60" rx="6" fill="transparent"/>
-  <path d="M12 42 L12 24 Q12 14 22 14 Q28 14 30 20 Q34 12 40 14 Q48 16 48 26 L48 42 Q44 48 40 42 L36 36 L30 44 L24 36 L20 42 Q16 48 12 42 Z" fill="#6c3fd1" opacity="0.15" stroke="#6c3fd1" stroke-width="1.5" stroke-linejoin="round"/>
-  <text x="56" y="28" font-family="'Inter', Arial, sans-serif" font-size="13" font-weight="800" fill="#6c3fd1" letter-spacing="-0.3">Beleg</text>
-  <text x="56" y="43" font-family="'Inter', Arial, sans-serif" font-size="13" font-weight="800" fill="#1a2332" letter-spacing="-0.3">host</text>
-</svg>
