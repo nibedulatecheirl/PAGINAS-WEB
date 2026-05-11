@@ -245,50 +245,64 @@
     <!-- ============================================================
          CLIENTES
     ============================================================ -->
-    <section class="clientes" id="clientes" aria-labelledby="clientes-label">
+    <section class="clientes" id="clientes" aria-labelledby="clientes-title">
       <div class="container">
-        <p class="clientes__label" id="clientes-label">
-          Ya confían en nosotros
-        </p>
+        <header class="clientes__header">
+          <p class="clientes__eyebrow">Clientes</p>
+          <h2 class="clientes__title" id="clientes-title">Ya confían en nosotros</h2>
+          <p class="clientes__subtitle">Organizaciones peruanas que transformaron sus procesos con NIBEDULA TECH</p>
+        </header>
       </div>
-      <div class="clientes__carousel" aria-hidden="true">
+      <div class="clientes__carousel" role="region" aria-label="Galería de clientes">
         <div class="clientes__track">
           <div class="clientes__item">
-            <img src="assets/img/clientes/logo_torata.png" alt="Municipalidad Distrital de Torata" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_torata.png" alt="Municipalidad Distrital de Torata" loading="lazy">
+            <span class="clientes__item-name">Municipalidad Distrital de Torata</span>
           </div>
           <div class="clientes__item">
-            <img src="assets/img/clientes/logo_yacango.png" alt="Municipalidad Distrital de Yacango" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_yacango.png" alt="Municipalidad Distrital de Yacango" loading="lazy">
+            <span class="clientes__item-name">Municipalidad Distrital de Yacango</span>
           </div>
           <div class="clientes__item">
-            <img src="assets/img/clientes/logo_solo_unjbg.ico" alt="Universidad Nacional Jorge Basadre Grohmann" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_solo_unjbg.ico" alt="Universidad Nacional Jorge Basadre Grohmann" loading="lazy">
+            <span class="clientes__item-name">UNJBG</span>
           </div>
           <div class="clientes__item">
-            <img src="assets/img/clientes/logo_electrosur.png" alt="ELECTROSUR S.A." width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_electrosur.png" alt="ELECTROSUR S.A." loading="lazy">
+            <span class="clientes__item-name">ELECTROSUR S.A.</span>
           </div>
           <div class="clientes__item">
-            <img src="assets/img/clientes/logo_desarrollo21.png" alt="desarrollo21" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_desarrollo21.png" alt="desarrollo21" loading="lazy">
+            <span class="clientes__item-name">desarrollo21</span>
           </div>
           <div class="clientes__item">
-            <img src="assets/img/clientes/logo_beleghost.svg" alt="beleghost" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_beleghost.svg" alt="beleghost" loading="lazy">
+            <span class="clientes__item-name">beleghost</span>
           </div>
-          <!-- duplicado para loop continuo -->
+          <!-- duplicado para loop continuo sin cortes -->
           <div class="clientes__item" aria-hidden="true">
-            <img src="assets/img/clientes/logo_torata.png" alt="" width="160" height="60" loading="lazy">
-          </div>
-          <div class="clientes__item" aria-hidden="true">
-            <img src="assets/img/clientes/logo_yacango.png" alt="" width="160" height="60" loading="lazy">
-          </div>
-          <div class="clientes__item" aria-hidden="true">
-            <img src="assets/img/clientes/logo_solo_unjbg.ico" alt="" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_torata.png" alt="" loading="lazy">
+            <span class="clientes__item-name">Municipalidad Distrital de Torata</span>
           </div>
           <div class="clientes__item" aria-hidden="true">
-            <img src="assets/img/clientes/logo_electrosur.png" alt="" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_yacango.png" alt="" loading="lazy">
+            <span class="clientes__item-name">Municipalidad Distrital de Yacango</span>
           </div>
           <div class="clientes__item" aria-hidden="true">
-            <img src="assets/img/clientes/logo_desarrollo21.png" alt="" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_solo_unjbg.ico" alt="" loading="lazy">
+            <span class="clientes__item-name">UNJBG</span>
           </div>
           <div class="clientes__item" aria-hidden="true">
-            <img src="assets/img/clientes/logo_beleghost.svg" alt="" width="160" height="60" loading="lazy">
+            <img src="assets/img/clientes/logo_electrosur.png" alt="" loading="lazy">
+            <span class="clientes__item-name">ELECTROSUR S.A.</span>
+          </div>
+          <div class="clientes__item" aria-hidden="true">
+            <img src="assets/img/clientes/logo_desarrollo21.png" alt="" loading="lazy">
+            <span class="clientes__item-name">desarrollo21</span>
+          </div>
+          <div class="clientes__item" aria-hidden="true">
+            <img src="assets/img/clientes/logo_beleghost.svg" alt="" loading="lazy">
+            <span class="clientes__item-name">beleghost</span>
           </div>
         </div>
       </div>
@@ -457,7 +471,7 @@
             </div>
           </article>
 
-          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="100" data-tilt>
+          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="0" data-tilt>
             <div class="service-card__bg" aria-hidden="true">
               <img src="assets/img/servicios/automatizacion_procesos.png" alt="" width="640" height="360" loading="lazy">
             </div>
@@ -481,7 +495,7 @@
             </div>
           </article>
 
-          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="200" data-tilt>
+          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="0" data-tilt>
             <div class="service-card__bg" aria-hidden="true">
               <img src="assets/img/servicios/integración_sistemas.png" alt="" width="640" height="360" loading="lazy">
             </div>
@@ -505,7 +519,7 @@
             </div>
           </article>
 
-          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="300" data-tilt>
+          <article class="service-card" role="listitem" data-animate="fade-up" data-delay="0" data-tilt>
             <div class="service-card__bg" aria-hidden="true">
               <img src="assets/img/servicios/reportes_dashboards.png" alt="" width="640" height="360" loading="lazy">
             </div>
@@ -529,7 +543,7 @@
             </div>
           </article>
 
-          <article class="service-card service-card--highlight" role="listitem" data-animate="fade-up" data-delay="400" data-tilt>
+          <article class="service-card service-card--highlight" role="listitem" data-animate="fade-up" data-delay="0" data-tilt>
             <div class="service-card__bg" aria-hidden="true">
               <img src="assets/img/servicios/importacion_tecnologica.png" alt="" width="640" height="360" loading="lazy">
             </div>
@@ -553,7 +567,7 @@
             </div>
           </article>
 
-          <div class="service-card service-card--cta" role="listitem" data-animate="fade-up" data-delay="500">
+          <div class="service-card service-card--cta" role="listitem" data-animate="fade-up" data-delay="0">
             <p class="service-card__cta-eyebrow">¿No sabes por dónde empezar?</p>
             <h3 class="service-card__cta-title">Conversemos sin compromiso</h3>
             <p class="service-card__cta-desc">

@@ -949,35 +949,40 @@
   );
 }
 
-.clientes__label {
+.clientes__header {
   text-align: center;
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  margin-bottom: var(--space-10);
+  max-width: 620px;
+  margin-inline: auto;
+  margin-bottom: var(--space-12);
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-5);
+  z-index: 1;
 }
 
-.clientes__label::before,
-.clientes__label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  max-width: 160px;
+.clientes__eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
 }
 
-.clientes__label::before {
-  background: linear-gradient(to right, transparent, rgba(13,100,112,0.25));
+.clientes__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
 }
 
-.clientes__label::after {
-  background: linear-gradient(to left, transparent, rgba(13,100,112,0.25));
+.clientes__subtitle {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 52ch;
+  margin-inline: auto;
 }
 
 .clientes__carousel {
@@ -989,10 +994,10 @@
 
 .clientes__track {
   display: flex;
-  align-items: center;
-  gap: var(--space-6);
+  align-items: stretch;
+  gap: var(--space-8);
   width: max-content;
-  animation: clientes-marquee 40s linear infinite;
+  animation: clientes-marquee 52s linear infinite;
 }
 
 .clientes__carousel:hover .clientes__track {
@@ -1006,40 +1011,51 @@
 
 .clientes__item {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  min-width: 200px;
-  min-height: 100px;
-  padding: var(--space-5) var(--space-6);
+  gap: var(--space-3);
+  min-width: 230px;
+  padding: var(--space-7) var(--space-8);
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background: var(--color-white);
   box-shadow: var(--shadow-sm);
   transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.32s var(--ease-out-expo),
+    border-color 0.28s ease,
+    box-shadow 0.28s ease;
 }
 
 .clientes__item:hover {
-  transform: translateY(-5px) scale(1.02);
-  border-color: rgba(13,100,112,0.3);
-  box-shadow: 0 12px 32px rgba(13,100,112,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(13,100,112,0.28);
+  box-shadow: 0 14px 36px rgba(13,100,112,0.12), 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .clientes__item img {
-  height: 60px;
+  height: 76px;
   width: auto;
-  max-width: 160px;
+  max-width: 170px;
   object-fit: contain;
-  filter: grayscale(20%) opacity(0.85);
-  transition: filter 0.3s ease, transform 0.3s ease;
+  filter: grayscale(15%) opacity(0.88);
+  transition: filter 0.32s ease, transform 0.32s ease;
 }
 
 .clientes__item:hover img {
   filter: grayscale(0%) opacity(1);
-  transform: scale(1.05);
+  transform: scale(1.06);
+}
+
+.clientes__item-name {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.35;
+  max-width: 170px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1047,8 +1063,9 @@
 }
 
 @media (max-width: 640px) {
-  .clientes__item { min-width: 160px; min-height: 80px; padding: var(--space-3) var(--space-4); }
-  .clientes__item img { height: 48px; }
+  .clientes__item { min-width: 175px; padding: var(--space-5) var(--space-6); }
+  .clientes__item img { height: 56px; }
+  .clientes__item-name { font-size: 10px; }
 }
 
 
@@ -1202,11 +1219,6 @@
   box-shadow: 0 14px 34px rgba(13,100,112,0.18);
 }
 
-/* Differentiate first card as a subtle featured item */
-.servicios__grid .service-card:nth-child(1):not(.service-card--cta) {
-  background: rgba(13,100,112,0.025);
-  border-color: rgba(13,100,112,0.18);
-}
 
 /* Hover: clean lift with teal border tint */
 .servicios__grid .service-card:not(.service-card--cta):hover {
@@ -1524,7 +1536,6 @@
   gap: var(--space-4);
   background-color: var(--color-white);
   border: 1px solid var(--color-border);
-  border-left: 3px solid rgba(13,100,112,0.15);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   position: relative;
@@ -1994,47 +2005,15 @@
    ANIMATION ENHANCEMENTS
 ============================================================ */
 
-/* Animated gradient shimmer for title accents */
+/* Title accent: solid brand colors */
 .title-accent {
-  background: linear-gradient(90deg,
-    var(--color-primary) 0%,
-    var(--color-accent) 45%,
-    var(--color-primary-light) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: title-gradient-shift 5s ease-in-out infinite alternate;
-}
-
-.hero__title-gradient {
-  background: linear-gradient(90deg,
-    var(--color-accent) 0%,
-    #7ae8d6 45%,
-    var(--color-accent) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: title-gradient-shift 6s ease-in-out infinite alternate;
-}
-
-@keyframes title-gradient-shift {
-  0%   { background-position: 0% center; }
-  100% { background-position: 100% center; }
+  color: var(--color-primary);
 }
 
 /* Service card icon: subtle scale bounce on hover */
 .servicios__grid .service-card:not(.service-card--cta):hover .service-card__icon img {
   transform: scale(1.12) rotate(-4deg);
   transition: transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Problema card: left accent border pulse on hover */
-.problema-card:hover {
-  border-left-color: rgba(0,212,170,0.55);
 }
 
 /* Proceso steps: bubble glow ripple */
@@ -2050,15 +2029,6 @@
 @keyframes bubble-ripple {
   from { transform: scale(0.7); opacity: 1; }
   to   { transform: scale(1.4); opacity: 0; }
-}
-
-/* Client items: stronger glow on hover for the darker section */
-.clientes__item:hover {
-  background:
-    linear-gradient(180deg, rgba(0,212,170,0.18), rgba(255,255,255,0.04)),
-    rgba(9,56,94,0.5);
-  border-color: rgba(0,212,170,0.42);
-  box-shadow: 0 20px 48px rgba(0,0,0,0.3), 0 0 32px rgba(0,212,170,0.14);
 }
 
 /* Section header badge: subtle entrance animation */
