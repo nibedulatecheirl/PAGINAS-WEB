@@ -404,6 +404,16 @@
                     <i class="fas fa-exclamation-triangle mr-2"></i>{{ session('warning') }}
                 </div>
             @endif
+            @if($errors->any())
+                <div class="mb-4 bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded shadow-sm">
+                    <p class="font-semibold mb-1"><i class="fas fa-exclamation-circle mr-2"></i>Revisa los datos ingresados</p>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             @yield('content')
         </main>
