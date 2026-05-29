@@ -1,0 +1,11 @@
+{
+  "name": "beniglow-store",
+  "scripts": {
+    "build:store": "babel public/store/src --out-dir public/store/dist --presets @babel/preset-react --extensions \".jsx,.js\""
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.29.7",
+    "@babel/core": "^7.29.7",
+    "@babel/preset-react": "^7.29.7"
+  }
+}

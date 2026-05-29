@@ -1,0 +1,122 @@
+:root {
+    --beni-ink: #3f2116;
+    --beni-espresso: #24110c;
+    --beni-brown: #5f3424;
+    --beni-copper: #b7775b;
+    --beni-rose: #d9a086;
+    --beni-blush: #fff1ea;
+    --beni-cream: #fffaf6;
+    --beni-surface: #fbf4ef;
+    --beni-line: #ead7cc;
+}
+
+body {
+    background: var(--beni-surface) !important;
+    color: var(--beni-ink);
+}
+
+.brand-sidebar {
+    background:
+        linear-gradient(180deg, rgba(255, 250, 246, .04), transparent 28%),
+        linear-gradient(180deg, #2a140d 0%, #3a1e14 46%, #1b0c08 100%) !important;
+    box-shadow: 14px 0 36px rgba(63, 33, 22, .12);
+}
+
+.brand-topbar {
+    background: rgba(255, 250, 246, .92) !important;
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--beni-line) !important;
+}
+
+.brand-logo-shell {
+    background: #fffaf6;
+    border: 1px solid rgba(183, 119, 91, .24);
+    box-shadow: 0 8px 22px rgba(74, 37, 24, .18);
+}
+
+.sidebar-link.active {
+    background: linear-gradient(90deg, rgba(183, 119, 91, .24), rgba(183, 119, 91, .04)) !important;
+    border-left: 3px solid var(--beni-rose) !important;
+    color: #ffe2d5 !important;
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 241, 234, .08) !important;
+}
+
+.gradient-primary,
+.btn-login {
+    background: linear-gradient(135deg, #7a402d 0%, #b7775b 54%, #e0a88f 100%) !important;
+    color: #fff !important;
+}
+
+.gradient-card-1 { background: linear-gradient(135deg, #7a402d 0%, #b7775b 100%) !important; }
+.gradient-card-2 { background: linear-gradient(135deg, #553026 0%, #c7896f 100%) !important; }
+.gradient-card-3 { background: linear-gradient(135deg, #b7775b 0%, #edc0aa 100%) !important; }
+.gradient-card-4 { background: linear-gradient(135deg, #3f2116 0%, #9d644d 100%) !important; }
+
+.bg-white.rounded-2xl.shadow-md,
+.login-card {
+    border: 1px solid rgba(183, 119, 91, .14);
+    box-shadow: 0 18px 44px rgba(63, 33, 22, .08) !important;
+}
+
+.text-emerald-500,
+.text-emerald-600,
+.text-emerald-700,
+.text-emerald-800,
+.text-teal-600 {
+    color: var(--beni-copper) !important;
+}
+
+.bg-emerald-50 {
+    background-color: var(--beni-blush) !important;
+}
+
+.bg-emerald-100 {
+    background-color: #f6ddcf !important;
+}
+
+.bg-emerald-500,
+.bg-emerald-600,
+.bg-teal-600 {
+    background-color: var(--beni-copper) !important;
+}
+
+.hover\:bg-emerald-50:hover,
+.hover\:bg-emerald-100:hover {
+    background-color: #fff4ee !important;
+}
+
+.hover\:bg-emerald-700:hover {
+    background-color: #8f523f !important;
+}
+
+.border-emerald-200,
+.border-emerald-500 {
+    border-color: #e0b9a5 !important;
+}
+
+.focus\:border-emerald-500:focus {
+    border-color: var(--beni-copper) !important;
+}
+
+.focus\:ring-emerald-500:focus {
+    --tw-ring-color: rgba(183, 119, 91, .42) !important;
+}
+
+.rounded-2xl h2,
+.rounded-2xl h3,
+.font-bold.text-slate-800 {
+    color: var(--beni-ink);
+}
+
+input[type="checkbox"].text-emerald-500,
+input[type="checkbox"].text-emerald-600 {
+    color: var(--beni-copper) !important;
+}
+
+::selection {
+    background: #e9b7a0;
+    color: #2a140d;
+}

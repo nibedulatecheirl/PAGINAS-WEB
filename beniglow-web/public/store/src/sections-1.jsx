@@ -1,0 +1,603 @@
+const { useState: useStateS, useEffect: useEffectS } = React;
+
+function Navbar({ cartCount = 0, onOpenCart }) {
+  const [scrolled, setScrolled] = useStateS(false);
+  const [open, setOpen] = useStateS(false);
+  useEffectS(() => {
+    const fn = () => setScrolled(window.scrollY > 12);
+    fn();
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+  const links = [
+    ["Inicio", "#inicio"],
+    ["Productos", "#productos"],
+    ["Rutinas", "#rutinas"],
+    ["Promociones", "#promociones"],
+    ["Cómo comprar", "#como-comprar"],
+    ["Preguntas", "#faq"],
+    ["Contacto", "#contacto"],
+  ];
+  return (
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        scrolled ? "backdrop-blur-xl bg-[color:var(--soft-cream)]/85 border-b border-[color:var(--border)]/80" : "bg-transparent"
+      }`}
+    >
+      <div className="relative max-w-7xl w-full mx-auto px-5 md:px-8 h-[72px] flex items-center justify-between gap-4">
+        <a href="#inicio" className="flex items-center gap-2.5 shrink-0">
+          <img
+            src="/store/assets/img/logo-beniglow.png"
+            alt="BeniGlow Store"
+            className="w-10 h-10 object-contain"
+          />
+          <span className="hidden sm:flex flex-col leading-none">
+            <span className="font-serif text-lg text-[color:var(--coffee)] tracking-wide">BeniGlow</span>
+            <span className="text-[10px] uppercase tracking-[0.32em] text-[color:var(--bronze)]">Store</span>
+          </span>
+        </a>
+
+        <nav className="hidden lg:flex items-center gap-1">
+          {links.map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              className="px-3.5 py-2 text-[13.5px] text-[color:var(--coffee)]/85 hover:text-[color:var(--olive)] transition rounded-full"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="absolute right-5 top-1/2 -translate-y-1/2 lg:static lg:translate-y-0 flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          <button
+            type="button"
+            onClick={onOpenCart}
+            title="Ver pedido web"
+            className="relative inline-flex h-10 items-center justify-center gap-2 rounded-full border border-[color:var(--olive)]/25 bg-white/95 px-3.5 text-[color:var(--olive)] shadow-[0_14px_30px_-12px_rgba(58,68,42,0.45)] backdrop-blur transition hover:-translate-y-0.5 hover:border-[color:var(--bronze)]/45 hover:bg-[color:var(--cream)] hover:shadow-[0_18px_38px_-12px_rgba(58,68,42,0.5)]"
+            aria-label="Ver pedido web"
+          >
+            <Icon name="ShoppingBag" className="w-4 h-4" />
+            <span className="hidden sm:inline text-[13px] font-medium">Mi pedido</span>
+            {cartCount > 0 ? (
+              <span className="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 rounded-full bg-[color:var(--rose-gold)] text-white text-[11px] grid place-items-center ring-2 ring-[color:var(--soft-cream)]">
+                {cartCount}
+              </span>
+            ) : null}
+          </button>
+          <WhatsAppButton label="Comprar" size="sm" className="hidden sm:inline-flex" />
+          <button
+            onClick={() => setOpen(true)}
+            className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 grid place-items-center rounded-full border border-[color:var(--border)] bg-white/80 text-[color:var(--coffee)]"
+            aria-label="Abrir menú"
+          >
+            <Icon name="Menu" className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      <div
+        className={`lg:hidden fixed inset-0 z-50 transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      >
+        <div className="absolute inset-0 bg-[color:var(--coffee)]/30 backdrop-blur-sm" onClick={() => setOpen(false)} />
+        <div
+          className={`absolute right-0 top-0 h-full w-[86%] max-w-sm bg-[color:var(--soft-cream)] shadow-2xl p-6 flex flex-col transition-transform duration-400 ${open ? "translate-x-0" : "translate-x-full"}`}
+        >
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-2.5">
+              <img src="/store/assets/img/logo-beniglow.png" alt="" className="w-10 h-10 object-contain" />
+              <span className="font-serif text-lg text-[color:var(--coffee)]">BeniGlow</span>
+            </div>
+            <button
+              onClick={() => setOpen(false)}
+              className="w-10 h-10 grid place-items-center rounded-full border border-[color:var(--border)]"
+              aria-label="Cerrar"
+            >
+              <Icon name="X" className="w-5 h-5" />
+            </button>
+          </div>
+          <nav className="flex flex-col gap-1">
+            {links.map(([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="px-4 py-3.5 rounded-2xl text-[15px] text-[color:var(--coffee)] hover:bg-[color:var(--cream)] transition flex items-center justify-between"
+              >
+                {label}
+                <Icon name="ArrowRight" className="w-4 h-4 text-[color:var(--bronze)]" />
+              </a>
+            ))}
+          </nav>
+          <div className="mt-auto flex flex-col gap-3 pt-6">
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                onOpenCart();
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-white"
+              style={{ background: "linear-gradient(135deg, var(--olive), var(--bronze))" }}
+            >
+              <Icon name="ShoppingBag" className="w-4 h-4" />
+              Ver pedido {cartCount ? `(${cartCount})` : ""}
+            </button>
+            <WhatsAppButton label="Comprar por WhatsApp" />
+            <GradientButton variant="outline" href="#productos" onClick={() => setOpen(false)}>
+              Ver catálogo
+            </GradientButton>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Hero({ brands = [] }) {
+  const [imageReady, setImageReady] = useStateS(false);
+  const features = [
+    { icon: "ShieldCheck", text: "Productos originales" },
+    { icon: "Truck", text: "Envíos a todo el Perú" },
+    { icon: "Clock", text: "Atención 24 horas" },
+    { icon: "Wallet", text: "Yape · Plin · POS" },
+  ];
+  const visibleBrands = brands.slice(0, 4);
+  const heroInitials = (visibleBrands.length ? visibleBrands : ["BeniGlow", "Store", "Glow"])
+    .slice(0, 3)
+    .map((brand) => brand.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toLowerCase());
+
+  return (
+    <section
+      id="inicio"
+      className="relative w-full min-h-[100svh] lg:min-h-[100vh] overflow-hidden bg-[color:var(--soft-cream)]"
+    >
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 hero-fallback" />
+        <img
+          src="/store/assets/img/hero-products.webp"
+          alt="Seleccion de productos de skincare y cosmetica para BeniGlow Store"
+          className={`absolute inset-0 w-full h-full object-cover hero-image ${imageReady ? "hero-image-ready hero-kenburns" : ""}`}
+          style={{ objectPosition: "right center" }}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          onLoad={() => setImageReady(true)}
+          draggable="false"
+        />
+        <div
+          className="hidden lg:block absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,253,248,0.92) 0%, rgba(255,253,248,0.78) 25%, rgba(255,253,248,0.35) 50%, rgba(255,253,248,0) 70%)",
+          }}
+        />
+        <div
+          className="lg:hidden absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,253,248,0.97) 0%, rgba(255,253,248,0.80) 30%, rgba(255,253,248,0.20) 55%, rgba(255,253,248,0) 75%)",
+          }}
+        />
+        <div
+          className="absolute pointer-events-none hero-pulse"
+          style={{
+            left: "5%",
+            top: "28%",
+            width: "45%",
+            height: "55%",
+            background:
+              "radial-gradient(50% 50% at 50% 50%, hsl(20 38% 78% / .45), transparent 70%)",
+            filter: "blur(28px)",
+          }}
+        />
+        <LeafSprig className="absolute -left-6 top-[10%] w-44 lg:w-56 text-[color:var(--olive)]/30 animate-float-slow" />
+        <LeafSprig className="absolute -left-2 bottom-[6%] w-32 lg:w-40 text-[color:var(--rose-gold)]/40 rotate-180 animate-float-slow-rev hidden md:block" />
+      </div>
+      <div className="relative z-10 min-h-[100svh] lg:min-h-[100vh] flex items-center pt-28 pb-16 lg:pt-32 lg:pb-20">
+        <div className="max-w-7xl w-full mx-auto px-5 md:px-8 lg:px-12">
+          <div className="max-w-[560px] lg:max-w-[620px]">
+            <Reveal priority>
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/85 backdrop-blur border border-[color:var(--border)] px-4 py-1.5 text-[11.5px] text-[color:var(--coffee)] mb-7 shadow-[0_8px_20px_-12px_rgba(58,68,42,0.25)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--olive)] animate-pulse" />
+                Skincare coreano en Tacna · Envíos a todo el Perú
+              </div>
+            </Reveal>
+
+            <h1 className="font-serif text-[44px] sm:text-[58px] lg:text-[72px] xl:text-[88px] leading-[0.96] text-[color:var(--coffee)] tracking-tight">
+              <Reveal as="span" priority className="block overflow-hidden">
+                <span className="block">Tu rutina coreana</span>
+              </Reveal>
+              <Reveal as="span" priority delay={70} className="block overflow-hidden">
+                <span className="block">para una piel con</span>
+              </Reveal>
+              <Reveal as="span" priority delay={130} className="inline-block overflow-visible mt-1">
+                <span className="relative inline-block">
+                  <span
+                    className="italic font-script-soft hero-shimmer"
+                    style={{
+                      background:
+                        "linear-gradient(120deg, var(--rose-gold) 0%, var(--bronze) 35%, var(--olive) 75%)",
+                      backgroundSize: "200% 100%",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      color: "transparent",
+                    }}
+                  >
+                    glow
+                  </span>
+                  <svg
+                    className="absolute -bottom-2 left-0 w-full h-3 text-[color:var(--rose-gold)]/75"
+                    viewBox="0 0 200 12"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 8 C 50 -2, 150 -2, 198 8"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      className="hero-stroke-draw"
+                      pathLength="1"
+                    />
+                  </svg>
+                </span>
+                <span className="text-[color:var(--coffee)]">.</span>
+              </Reveal>
+            </h1>
+
+            <Reveal priority delay={180}>
+              <p className="mt-7 text-[16px] md:text-[18px] text-[color:var(--coffee)]/78 leading-relaxed max-w-[330px] sm:max-w-[520px]">
+                Bloqueadores, sérums, limpiadores y productos de skincare
+                coreano seleccionados para cuidar tu piel todos los días.
+              </p>
+            </Reveal>
+
+            <Reveal priority delay={230}>
+              <ul className="mt-7 flex flex-wrap gap-2 max-w-[540px]">
+                {features.map((f, i) => (
+                  <li
+                    key={f.text}
+                    className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur border border-[color:var(--border)] px-3.5 py-2 shadow-[0_8px_20px_-14px_rgba(58,68,42,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--olive)]/40"
+                    style={{ animation: `chipIn .45s ${0.18 + i * 0.05}s both` }}
+                  >
+                    <span className="w-6 h-6 rounded-full grid place-items-center bg-[color:var(--cream)] text-[color:var(--olive)] flex-none">
+                      <Icon name={f.icon} className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="text-[12.5px] text-[color:var(--coffee)] font-medium leading-tight whitespace-nowrap">{f.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal priority delay={280}>
+              <div className="mt-9 flex flex-wrap items-center gap-3">
+                <GradientButton href="#productos" size="lg" icon={<Icon name="ArrowRight" className="w-4 h-4" />}>
+                  Ver productos
+                </GradientButton>
+                <WhatsAppButton label="Comprar por WhatsApp" variant="outline" size="lg" />
+              </div>
+            </Reveal>
+
+            <Reveal priority delay={330}>
+              <div className="mt-10 flex items-center gap-4">
+                <div className="flex -space-x-2">
+                  {["#B9826A", "#314D2F", "#8A5E45"].map((c, i) => (
+                    <span
+                      key={i}
+                      className="w-9 h-9 rounded-full border-2 border-[color:var(--soft-cream)] grid place-items-center text-[10px] font-serif text-white shadow-sm"
+                      style={{ background: c }}
+                    >
+                      {heroInitials[i] || "bg"}
+                    </span>
+                  ))}
+                </div>
+                <div className="leading-tight">
+                  <p className="text-[12.5px] text-[color:var(--coffee)] font-medium">
+                    {visibleBrands.length ? `${visibleBrands.length}+ marcas seleccionadas` : "Marcas coreanas seleccionadas"}
+                  </p>
+                  <p className="text-[11.5px] text-[color:var(--coffee)]/65">
+                    {visibleBrands.length ? visibleBrands.join(" · ") : "Skincare, bloqueadores y rutinas para tu piel"}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </div>
+      <div className="hidden lg:block absolute top-[16%] right-[4%] xl:right-[8%] z-10 pointer-events-none" style={{ animation: "fadeUp .8s .9s both" }}>
+        <FloatingCard icon="ShieldCheck" title="Originales" sub="Marcas seleccionadas" />
+      </div>
+      <div className="hidden lg:block absolute bottom-[18%] right-[10%] xl:right-[14%] z-10 pointer-events-none" style={{ animation: "fadeUp .8s 1.1s both" }}>
+        <FloatingCard icon="Check" title="Stock disponible" sub="Listos para enviar" tone="rose" />
+      </div>
+      <div className="hidden lg:flex absolute top-24 left-8 xl:left-12 items-center gap-2 bg-white/90 backdrop-blur rounded-full pl-1.5 pr-4 py-1.5 border border-[color:var(--border)] shadow-sm z-10" style={{ animation: "fadeUp .7s .3s both" }}>
+        <img src="/store/assets/img/logo-beniglow.png" alt="" className="w-8 h-8 object-contain" />
+        <span className="text-[10.5px] uppercase tracking-[0.28em] text-[color:var(--coffee)]">K-Beauty · Tacna</span>
+      </div>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[color:var(--coffee)]/55 hidden md:flex" style={{ animation: "fadeUp .8s 1.3s both" }}>
+        <span className="text-[10px] uppercase tracking-[0.32em]">Desliza</span>
+        <span className="w-px h-12 bg-current relative overflow-hidden">
+          <span className="absolute inset-x-0 top-0 h-1/3 bg-[color:var(--olive)] hero-scroll-dot" />
+        </span>
+      </div>
+    </section>
+  );
+}
+
+function BrandStrip({ brands = [] }) {
+  const fallbackBrands = ["Beauty of Joseon", "Anua", "COSRX", "Skin1004", "Round Lab", "Isntree", "Axis-Y"];
+  const sourceBrands = [...new Set(brands.filter(Boolean))];
+  const displayBrands = sourceBrands.length ? sourceBrands : fallbackBrands;
+
+  const loop = displayBrands.concat(displayBrands, displayBrands);
+  return (
+    <section aria-label="Marcas que trabajamos" className="border-y border-[color:var(--border)] bg-[color:var(--cream)]/40 py-7 overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-5 md:px-8 flex items-center gap-6">
+        <span className="text-[10.5px] uppercase tracking-[0.32em] text-[color:var(--bronze)] whitespace-nowrap hidden md:inline">
+          Marcas que trabajamos
+        </span>
+        <div className="relative flex-1 overflow-hidden">
+          <div className="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-[color:var(--cream)]/40 to-transparent" />
+          <div className="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-[color:var(--cream)]/40 to-transparent" />
+          <div className="flex items-center gap-10 md:gap-14 w-max animate-marquee-slow">
+            {loop.map((b, i) => (
+              <span
+                key={i}
+                className="font-serif text-[18px] md:text-[22px] text-[color:var(--coffee)]/55 italic tracking-wide whitespace-nowrap"
+              >
+                {b}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FloatingCard({ className, icon, title, sub, tone = "white" }) {
+  const tones = {
+    white: "bg-white",
+    rose: "bg-[color:var(--rose-gold)]/95 text-white",
+    cream: "bg-[color:var(--cream)]",
+  };
+  const isRose = tone === "rose";
+  return (
+    <div
+      className={`flex items-center gap-3 rounded-2xl ${tones[tone]} border border-[color:var(--border)]/70 shadow-[0_18px_30px_-20px_rgba(58,68,42,0.4)] px-3.5 py-2.5 backdrop-blur ${className} animate-float`}
+    >
+      <span
+        className={`w-9 h-9 rounded-xl grid place-items-center ${isRose ? "bg-white/15 text-white" : "bg-[color:var(--cream)] text-[color:var(--olive)]"} flex-none`}
+      >
+        <Icon name={icon} className="w-4 h-4" />
+      </span>
+      <div className="leading-tight pr-1">
+        <p className={`text-[12.5px] font-semibold ${isRose ? "text-white" : "text-[color:var(--coffee)]"}`}>{title}</p>
+        <p className={`text-[11px] ${isRose ? "text-white/85" : "text-[color:var(--muted-foreground)]"}`}>{sub}</p>
+      </div>
+    </div>
+  );
+}
+
+function ProductMarquee({ products = BENI.products, loading = false }) {
+  if (loading || products.length === 0) return null;
+
+  const baseItems = products.slice(0, 8);
+  const items = baseItems.concat(baseItems);
+  return (
+    <section className="section-band section-cream product-marquee-section py-14 md:py-20 overflow-hidden relative">
+      <div className="max-w-[1480px] mx-auto px-5 md:px-8">
+        <div className="flex items-end justify-between gap-6 flex-wrap mb-8">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.25em] text-[color:var(--bronze)] mb-2">Selección K-Beauty</p>
+            <h3 className="font-serif text-2xl md:text-3xl text-[color:var(--coffee)]">Lo que llegará para tu piel</h3>
+          </div>
+          <a href="#productos" className="text-sm font-medium text-[color:var(--olive)] inline-flex items-center gap-1.5 hover:gap-2.5 transition-all">
+            Ver todo el catálogo <Icon name="ArrowRight" className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 w-24 md:w-40 z-10 pointer-events-none bg-gradient-to-r from-[color:var(--background)] to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-24 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-[color:var(--background)] to-transparent" />
+        <div className="overflow-hidden">
+          <div className="flex gap-5 animate-marquee-slow w-max">
+            {items.map((p, i) => (
+              <div
+                key={i}
+                className="w-[220px] md:w-[260px] aspect-[3/4] rounded-3xl overflow-hidden bg-[color:var(--cream)] border border-[color:var(--border)] relative group"
+              >
+                <MarqueeProductImage product={p} />
+                <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-[color:var(--coffee)]/65 to-transparent">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-white/85">{p.brand}</p>
+                  <p className="text-white text-sm font-medium line-clamp-1">{p.name}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MarqueeProductImage({ product }) {
+  const [loaded, setLoaded] = useStateS(false);
+
+  return (
+    <>
+      <div
+        className={`absolute inset-0 bg-gradient-to-br from-[color:var(--cream)] via-white to-[color:var(--soft-cream)] transition-opacity duration-500 ${
+          loaded ? "opacity-0" : "opacity-100"
+        }`}
+      />
+      <img
+        src={product.image}
+        alt={product.name}
+        className={`absolute inset-0 w-full h-full object-cover transition-[opacity,transform] duration-[900ms] ease-out group-hover:scale-105 ${
+          loaded ? "opacity-100 scale-100" : "opacity-0 scale-[1.02]"
+        }`}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+      />
+    </>
+  );
+}
+
+function Categories({ categories = BENI.categories, loading = false }) {
+  return (
+    <section id="categorias" className="section-band section-soft py-20 md:py-28 relative">
+      <LeafSprig className="absolute right-2 top-12 w-32 text-[color:var(--olive)]/15 hidden md:block" />
+      <div className="max-w-7xl mx-auto px-5 md:px-8">
+        <Reveal>
+          <SectionHeader
+            eyebrow="Categorías"
+            title="Encuentra lo que tu piel necesita"
+            description="Explora por categoría y consulta por WhatsApp para que te ayudemos a elegir el producto ideal para tu rutina."
+          />
+        </Reveal>
+        <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {loading ? [1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-48 rounded-3xl bg-white/70 border border-[color:var(--border)] animate-pulse" />
+          )) : null}
+          {!loading && categories.length === 0 ? (
+            <div className="sm:col-span-2 lg:col-span-4 rounded-3xl border border-dashed border-[color:var(--border)] bg-white/70 px-6 py-10 text-center">
+              <p className="font-serif text-2xl text-[color:var(--coffee)]">Categorías en preparación</p>
+              <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
+                Muy pronto verás aquí nuestras categorías favoritas para cuidar tu piel.
+              </p>
+            </div>
+          ) : null}
+          {!loading && categories.map((c, i) => (
+            <Reveal key={c.id} delay={i * 60}>
+              <CategoryCard
+                icon={c.icon}
+                title={c.title}
+                description={c.description}
+                message={`Hola, quiero consultar por ${c.title} en BeniGlow Store.`}
+              />
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedProducts({ products = BENI.products, loading = false, error = null, onDetail, onAddToCart }) {
+  const visibleProducts = products.slice(0, 8);
+
+  return (
+    <section id="productos" className="section-band section-blush py-20 md:py-28 relative">
+      <div className="max-w-[1480px] mx-auto px-5 md:px-8">
+        <Reveal>
+          <SectionHeader
+            eyebrow="Productos destacados"
+            title="Favoritos para tu rutina diaria"
+            description="Productos seleccionados para proteger, hidratar y cuidar tu piel con fórmulas ligeras y efectivas."
+          />
+        </Reveal>
+        <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {loading ? [1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-[420px] rounded-[28px] bg-white/70 border border-[color:var(--border)] animate-pulse" />
+          )) : null}
+          {!loading && error ? (
+            <div className="sm:col-span-2 lg:col-span-4 rounded-3xl border border-red-100 bg-red-50 px-6 py-8 text-center">
+              <p className="font-serif text-2xl text-red-900">No se pudo cargar el catálogo</p>
+              <p className="mt-2 text-sm text-red-700">{error}</p>
+            </div>
+          ) : null}
+          {!loading && !error && products.length === 0 ? (
+            <div className="sm:col-span-2 lg:col-span-4 rounded-3xl border border-dashed border-[color:var(--border)] bg-white/70 px-6 py-10 text-center">
+              <Icon name="ShoppingBag" className="w-10 h-10 mx-auto text-[color:var(--bronze)]" />
+              <p className="mt-4 font-serif text-3xl text-[color:var(--coffee)]">Pronto tendremos nuevos favoritos</p>
+              <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
+                Estamos preparando productos seleccionados para que armes tu rutina con confianza.
+              </p>
+            </div>
+          ) : null}
+          {!loading && !error && visibleProducts.map((p, i) => (
+            <Reveal key={p.id} delay={i * 80}>
+              <ProductCard product={p} onDetail={onDetail} onAddToCart={onAddToCart} />
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <WhatsAppButton label="Consultar el catálogo completo" message={BENI.whatsapp.general ? "Hola, quiero ver el catálogo completo de BeniGlow Store." : ""} variant="outline" size="lg" />
+          <p className="mt-4 text-xs text-[color:var(--muted-foreground)]">
+            Estos productos son apoyo a tu rutina diaria. Si tienes piel sensible o alguna condición dermatológica, consulta con un especialista.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SunProtection() {
+  const items = [
+    { icon: "ShieldCheck", title: "Protección UVA/UVB", text: "Defensa amplia para tu rutina diaria." },
+    { icon: "Cloud", title: "Fórmulas ligeras", text: "Texturas suaves que no se sienten pesadas." },
+    { icon: "Sparkles", title: "Acabado natural", text: "Sin brillos exagerados ni residuos." },
+    { icon: "Sun", title: "Ideal para uso diario", text: "Pensado como último paso de tu rutina de día." },
+    { icon: "Droplets", title: "Opciones hidratantes", text: "Aportan confort y sensación fresca." },
+    { icon: "Clock", title: "Reaplicación durante el día", text: "Refresca según tu exposición solar." },
+  ];
+  return (
+    <section className="section-band section-sage py-20 md:py-28 relative overflow-hidden">
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(50% 50% at 50% 0%, hsl(20 38% 88% / .55), transparent 60%), var(--soft-cream)",
+        }}
+      />
+      <LeafSprig className="absolute left-6 top-1/2 -translate-y-1/2 w-44 text-[color:var(--olive)]/15 hidden md:block" />
+      <LeafSprig className="absolute right-6 top-1/4 w-32 text-[color:var(--rose-gold)]/15 rotate-180 hidden md:block" />
+
+      <div className="max-w-7xl mx-auto px-5 md:px-8">
+        <Reveal>
+          <SectionHeader
+            eyebrow="Protección solar"
+            title="Protege tu piel todos los días"
+            description="Bloqueadores coreanos de textura ligera, ideales para acompañar tu rutina diaria."
+          />
+        </Reveal>
+        <div className="mt-12 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {items.map((it, i) => (
+            <Reveal key={it.title} delay={i * 60}>
+              <div className="h-full p-7 rounded-3xl bg-white/80 backdrop-blur border border-[color:var(--border)] flex gap-4 items-start hover:bg-white transition-colors">
+                <span className="w-11 h-11 rounded-2xl grid place-items-center bg-[color:var(--cream)] text-[color:var(--olive)] flex-none">
+                  <Icon name={it.icon} className="w-5 h-5" />
+                </span>
+                <div>
+                  <h4 className="font-serif text-lg text-[color:var(--coffee)]">{it.title}</h4>
+                  <p className="text-sm text-[color:var(--muted-foreground)] mt-1.5 leading-relaxed">{it.text}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal>
+          <p className="mt-10 mx-auto max-w-3xl text-center text-[13px] text-[color:var(--muted-foreground)] leading-relaxed rounded-3xl bg-[color:var(--cream)]/60 border border-[color:var(--border)] px-6 py-4">
+            El protector solar debe aplicarse como último paso de la rutina de día
+            y reaplicarse según exposición solar. Si tienes piel sensible o alguna
+            condición dermatológica, consulta con un especialista.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, {
+  Navbar,
+  Hero,
+  BrandStrip,
+  ProductMarquee,
+  MarqueeProductImage,
+  Categories,
+  FeaturedProducts,
+  SunProtection,
+});

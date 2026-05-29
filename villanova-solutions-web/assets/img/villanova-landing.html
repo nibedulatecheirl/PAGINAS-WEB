@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Villanova Solutions Peru — Desarrollo de software, agentes de inteligencia artificial, automatización de procesos y productos tecnológicos para empresas." />
+<title>Villanova Solutions Peru — Tecnología que impulsa tu negocio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   DESIGN TOKENS — Villanova Solutions Peru
+   ========================================================= */
+:root {
+  /* Brand-derived palette: deep navy foreground + cobalt accent */
+  --bg: #FFFFFF;
+  --bg-soft: #F7F9FC;
+  --fg: #0A1628;
+  --fg-muted: #6B7785;
+  --fg-faint: #98A2B3;
+  --accent: #1E5FED;
+  --accent-deep: #1547C2;
+  --accent-soft: #EAF0FF;
+  --accent-tint: rgba(30, 95, 237, 0.08);
+  --border: #E6EAF0;
+  --border-soft: #EEF1F5;
+
+  --success: #16A34A;
+  --warning: #D97706;
+  --danger:  #DC2626;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+
+  --font-display: 'Fraunces', 'Times New Roman', serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(10, 22, 40, 0.04), 0 0 0 1px rgba(10, 22, 40, 0.04);
+  --shadow-elevated: 0 25px 60px -20px rgba(10, 22, 40, 0.18), 0 0 0 1px rgba(10, 22, 40, 0.05);
+  --shadow-glow: 0 12px 32px -10px rgba(30, 95, 237, 0.35);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img, svg { display: block; max-width: 100%; }
+
+/* =========================================================
+   LAYOUT — viewport-locked hero with overflow clipping
+   ========================================================= */
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+.nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+}
+@media (min-width: 768px)  { .nav { padding: 22px 48px; } }
+@media (min-width: 1024px) { .nav { padding: 24px 80px; } }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--fg) 0%, var(--accent) 100%);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.4), transparent 50%);
+}
+.brand-mark svg { position: absolute; inset: 0; margin: auto; }
+.brand-suffix { color: var(--fg-muted); font-weight: 500; font-size: 14px; }
+
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 36px;
+}
+@media (min-width: 900px) { .nav-links { display: flex; } }
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--fg-muted);
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 4px 0;
+}
+.nav-links a:hover { color: var(--fg); }
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 999px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.btn-primary {
+  background: var(--fg);
+  color: white;
+  padding: 11px 20px;
+}
+.btn-primary:hover {
+  background: #1a2740;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgba(10,22,40,0.4);
+}
+.btn-primary-lg {
+  padding: 15px 26px;
+  font-size: 14px;
+}
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: white;
+  color: var(--fg);
+  box-shadow: 0 2px 12px rgba(10,22,40,0.08);
+  border: 1px solid var(--border-soft);
+}
+.btn-icon:hover { background: var(--bg-soft); transform: translateY(-1px); }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  position: relative;
+  flex: 1;
+  padding: 24px 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+}
+@media (min-width: 768px) { .hero { padding: 32px 48px 0; } }
+@media (min-width: 1024px) { .hero { padding: 40px 80px 0; } }
+
+/* ---- Sound wave background ---- */
+.waves {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%);
+}
+.waves svg {
+  position: absolute;
+  width: 200%;
+  left: -50%;
+  height: 100%;
+  top: 0;
+}
+.wave-path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  opacity: 0;
+  animation: wave-flow 14s linear infinite, wave-fade 14s ease-in-out infinite;
+}
+@keyframes wave-flow {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-25%); }
+}
+@keyframes wave-fade {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 0.18; }
+}
+
+/* Pulsing radial sound rings behind headline */
+.sonar {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  max-width: 90vw;
+  aspect-ratio: 1;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.sonar-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: sonar 6s ease-out infinite;
+}
+.sonar-ring:nth-child(2) { animation-delay: 2s; }
+.sonar-ring:nth-child(3) { animation-delay: 4s; }
+@keyframes sonar {
+  0%   { transform: scale(0.4); opacity: 0; }
+  20%  { opacity: 0.4; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* ---- Hero content ---- */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: rise 0.6s 0.05s ease-out forwards;
+}
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(30,95,237,0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(30,95,237,0.55); }
+  50%      { box-shadow: 0 0 0 8px rgba(30,95,237,0); }
+}
+.badge-sparkle { color: var(--accent); font-size: 14px; }
+
+/* Headline */
+.headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 7vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  max-width: 14ch;
+  margin: 0 0 18px;
+  color: var(--fg);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rise 0.7s 0.15s ease-out forwards;
+}
+.headline em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  font-feature-settings: "ss01" 1;
+}
+
+/* Subhead */
+.subhead {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  max-width: 580px;
+  margin: 0 0 28px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rise 0.7s 0.25s ease-out forwards;
+}
+@media (min-width: 768px) { .subhead { font-size: 17px; } }
+
+/* CTAs */
+.ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 44px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rise 0.7s 0.35s ease-out forwards;
+}
+
+@keyframes rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   DASHBOARD PREVIEW
+   ========================================================= */
+.dashboard-wrap {
+  width: 100%;
+  max-width: 1080px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: rise 0.9s 0.55s cubic-bezier(.16,1,.3,1) forwards;
+}
+.dashboard {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-elevated);
+  overflow: hidden;
+}
+.dashboard-inner {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  font-size: 11px;
+}
+
+/* Topbar */
+.db-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-soft);
+  background: white;
+}
+.db-topbar-left,
+.db-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.db-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+.db-logo-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--fg), var(--accent));
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+.db-chev { color: var(--fg-faint); font-size: 10px; }
+
+.db-search {
+  flex: 1;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  color: var(--fg-faint);
+}
+.db-search-icon { width: 12px; height: 12px; }
+.db-search-text { font-size: 11px; }
+.db-kbd {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 5px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 9px;
+  color: var(--fg-faint);
+}
+
+.db-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  background: var(--fg);
+  color: white;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.db-icon-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--fg-muted);
+}
+.db-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+}
+
+/* Body */
+.db-body {
+  display: flex;
+  min-height: 360px;
+}
+
+/* Sidebar */
+.db-sidebar {
+  width: 168px;
+  flex-shrink: 0;
+  padding: 12px 8px;
+  border-right: 1px solid var(--border-soft);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.db-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  padding: 10px 8px 4px;
+}
+.db-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  color: var(--fg-muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+.db-nav-item.active {
+  background: var(--bg-soft);
+  color: var(--fg);
+}
+.db-nav-item .ic {
+  width: 13px;
+  height: 13px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+.db-nav-item .grow { flex: 1; }
+.db-nav-item .badge-num {
+  background: var(--fg);
+  color: white;
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.db-nav-item.accent-badge .badge-num { background: var(--accent); }
+
+/* Main content */
+.db-main {
+  flex: 1;
+  padding: 16px;
+  background: var(--bg-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.db-greeting {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.db-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.db-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--border);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--fg);
+}
+.db-action.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.db-action .ic { width: 11px; height: 11px; }
+.db-action-customize {
+  font-size: 10px;
+  color: var(--fg-muted);
+  margin-left: 4px;
+}
+
+/* Cards row */
+.db-cards {
+  display: flex;
+  gap: 12px;
+}
+.db-card {
+  flex: 1 1 0;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.db-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.db-card-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--fg-muted);
+  font-weight: 500;
+}
+.db-card-check {
+  width: 12px; height: 12px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 8px;
+}
+.db-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fg-faint);
+}
+
+/* Balance card */
+.db-amount {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.db-amount .cents {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+.db-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--fg-muted);
+  margin: 6px 0 10px;
+}
+.db-stat-pos { color: var(--success); font-weight: 600; }
+.db-stat-neg { color: var(--danger);  font-weight: 600; }
+
+/* Audio wave for AI agent card */
+.db-wave {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  padding: 0 2px;
+}
+.db-wave-bar {
+  flex: 1;
+  background: linear-gradient(180deg, var(--accent), var(--accent-deep));
+  border-radius: 2px;
+  min-height: 4px;
+  opacity: 0.9;
+  animation: barPulse 1.8s ease-in-out infinite;
+}
+@keyframes barPulse {
+  0%, 100% { transform: scaleY(0.3); }
+  50%      { transform: scaleY(1); }
+}
+
+/* Agents/accounts list card */
+.db-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 0;
+  font-size: 11px;
+}
+.db-row + .db-row { border-top: 1px solid var(--border-soft); }
+.db-row-label { color: var(--fg); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+.db-row-meta { color: var(--fg-muted); font-size: 10px; }
+.db-row-val { color: var(--fg); font-weight: 600; }
+.db-row-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 2px rgba(22,163,74,0.15);
+}
+.db-row-dot.warn { background: var(--warning); box-shadow: 0 0 0 2px rgba(217,119,6,0.15); }
+
+/* Transactions */
+.db-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg);
+  padding-top: 4px;
+}
+.db-table {
+  width: 100%;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+.db-table th, .db-table td {
+  padding: 9px 14px;
+  text-align: left;
+  font-size: 10.5px;
+}
+.db-table th {
+  background: var(--bg-soft);
+  color: var(--fg-muted);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-soft);
+}
+.db-table td { border-bottom: 1px solid var(--border-soft); color: var(--fg); }
+.db-table tr:last-child td { border-bottom: none; }
+.db-amount-neg { color: var(--danger); font-weight: 500; }
+.db-amount-pos { color: var(--success); font-weight: 500; }
+.db-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 500;
+}
+.db-status.pending { background: #FEF3C7; color: var(--warning); }
+.db-status.done    { background: #DCFCE7; color: var(--success); }
+
+/* Mobile dashboard adjustments */
+@media (max-width: 700px) {
+  .db-body { flex-direction: column; }
+  .db-sidebar { width: 100%; flex-direction: row; overflow-x: auto; gap: 6px; }
+  .db-section-label { display: none; }
+  .db-nav-item { flex-shrink: 0; }
+  .db-cards { flex-direction: column; }
+  .db-search { display: none; }
+}
+
+/* =========================================================
+   ANIMATIONS — respect reduced-motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- =================== NAVBAR =================== -->
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-mark">
+        <!-- Stylized V mark -->
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3.5L8 12.5L13 3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        Villanova <span class="brand-suffix">/ Perú</span>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#productos">Productos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+
+    <button class="btn btn-primary">Contáctanos</button>
+  </nav>
+
+  <!-- =================== HERO =================== -->
+  <section class="hero" id="inicio">
+
+    <!-- Sound wave background (signature visual element) -->
+    <div class="waves" aria-hidden="true">
+      <!-- Layer 1: slow, deep waves -->
+      <svg viewBox="0 0 2000 600" preserveAspectRatio="none">
+        <path class="wave-path" style="stroke-width:1.2; animation-delay: 0s;"
+              d="M0,300 Q250,220 500,300 T1000,300 T1500,300 T2000,300"/>
+        <path class="wave-path" style="stroke-width:1; animation-delay: -2s; opacity:0;"
+              d="M0,320 Q250,260 500,320 T1000,320 T1500,320 T2000,320"/>
+        <path class="wave-path" style="stroke-width:1; animation-delay: -4s;"
+              d="M0,340 Q250,400 500,340 T1000,340 T1500,340 T2000,340"/>
+        <path class="wave-path" style="stroke-width:0.8; animation-delay: -6s;"
+              d="M0,280 Q250,180 500,280 T1000,280 T1500,280 T2000,280"/>
+        <path class="wave-path" style="stroke-width:0.8; animation-delay: -8s;"
+              d="M0,360 Q250,440 500,360 T1000,360 T1500,360 T2000,360"/>
+        <path class="wave-path" style="stroke-width:0.6; animation-delay: -10s;"
+              d="M0,260 Q250,140 500,260 T1000,260 T1500,260 T2000,260"/>
+        <path class="wave-path" style="stroke-width:0.6; animation-delay: -12s;"
+              d="M0,380 Q250,480 500,380 T1000,380 T1500,380 T2000,380"/>
+      </svg>
+    </div>
+
+    <!-- Radial sound rings -->
+    <div class="sonar" aria-hidden="true">
+      <div class="sonar-ring"></div>
+      <div class="sonar-ring"></div>
+      <div class="sonar-ring"></div>
+    </div>
+
+    <div class="hero-content">
+
+      <!-- Badge -->
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>Agentes de IA disponibles ahora</span>
+        <span class="badge-sparkle">✦</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="headline">
+        Tecnología que <em>Impulsa</em> tu negocio
+      </h1>
+
+      <!-- Subhead -->
+      <p class="subhead">
+        Desarrollamos software a medida, automatizamos procesos con agentes de inteligencia artificial y proveemos los mejores productos tecnológicos para empresas en todo el Perú.
+      </p>
+
+      <!-- CTAs -->
+      <div class="ctas">
+        <button class="btn btn-primary btn-primary-lg">
+          Agenda una demo
+        </button>
+        <button class="btn-icon" aria-label="Ver video">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Dashboard preview -->
+      <div class="dashboard-wrap">
+        <div class="dashboard">
+          <div class="dashboard-inner">
+
+            <!-- Topbar -->
+            <div class="db-topbar">
+              <div class="db-topbar-left">
+                <div class="db-logo">
+                  <div class="db-logo-mark">V</div>
+                  <span>Villanova</span>
+                  <span class="db-chev">▾</span>
+                </div>
+              </div>
+              <div class="db-search">
+                <svg class="db-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="db-search-text">Buscar o navegar a…</span>
+                <span class="db-kbd">⌘K</span>
+              </div>
+              <div class="db-topbar-right">
+                <span class="db-pill">Nuevo agente</span>
+                <span class="db-icon-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                </span>
+                <div class="db-avatar">CV</div>
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="db-body">
+
+              <!-- Sidebar -->
+              <aside class="db-sidebar">
+                <div class="db-nav-item active">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  <span class="grow">Inicio</span>
+                </div>
+                <div class="db-nav-item accent-badge">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
+                  <span class="grow">Agentes IA</span>
+                  <span class="badge-num">12</span>
+                </div>
+                <div class="db-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                  <span class="grow">Automatizaciones</span>
+                </div>
+                <div class="db-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.91 8.84 8.56 2.23a1.93 1.93 0 0 0-1.81 0L3.1 4.13a2 2 0 0 0-.05 3.48l12.22 6.93a2 2 0 0 0 1.94 0L21 12.21a2 2 0 0 0-.09-3.37"/><path d="m3.09 8.84 12.35 6.61a2 2 0 0 0 1.81 0l3.65-1.9a2 2 0 0 0 .05-3.48"/></svg>
+                  <span class="grow">Productos</span>
+                </div>
+                <div class="db-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                  <span class="grow">Pagos</span>
+                  <span class="db-chev">▸</span>
+                </div>
+                <div class="db-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span class="grow">Clientes</span>
+                </div>
+
+                <div class="db-section-label">Flujos</div>
+                <div class="db-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m7.08 7.08 4.24 4.24M1 12h6m10 0h6M4.22 19.78l4.24-4.24m7.08-7.08 4.24-4.24"/></svg>
+                  <span class="grow">Integraciones</span>
+                </div>
+                <div class="db-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0z"/><path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"/></svg>
+                  <span class="grow">Notificaciones</span>
+                </div>
+                <div class="db-nav-item">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <span class="grow">Ajustes</span>
+                </div>
+              </aside>
+
+              <!-- Main -->
+              <main class="db-main">
+                <div class="db-greeting">Bienvenido, Carlos</div>
+
+                <div class="db-actions">
+                  <button class="db-action primary">
+                    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4z"/></svg>
+                    Nuevo agente
+                  </button>
+                  <button class="db-action">+ Automatización</button>
+                  <button class="db-action">⇄ Integrar</button>
+                  <button class="db-action">+ Cliente</button>
+                  <button class="db-action">+ Producto</button>
+                  <button class="db-action">⤓ Reporte</button>
+                  <span class="db-action-customize">Personalizar</span>
+                </div>
+
+                <div class="db-cards">
+
+                  <!-- Card 1: AI Agent activity with sound waveform -->
+                  <div class="db-card">
+                    <div class="db-card-head">
+                      <div class="db-card-title">
+                        <span>Agente "Soporte Ventas"</span>
+                        <span class="db-card-check">✓</span>
+                      </div>
+                      <div class="db-card-actions">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                      </div>
+                    </div>
+                    <div class="db-amount">1,284<span class="cents"> conversaciones</span></div>
+                    <div class="db-stats">
+                      <span>Últimos 30 días</span>
+                      <span class="db-stat-pos">▲ +312</span>
+                      <span class="db-stat-neg">▼ −18</span>
+                    </div>
+                    <!-- Animated sound-wave bars: the brand signature inside the dashboard -->
+                    <div class="db-wave" id="wave-bars" aria-hidden="true"></div>
+                  </div>
+
+                  <!-- Card 2: Servicios activos -->
+                  <div class="db-card">
+                    <div class="db-card-head">
+                      <div class="db-card-title">Servicios activos</div>
+                      <div class="db-card-actions">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7h14"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                      </div>
+                    </div>
+                    <div class="db-row">
+                      <div class="db-row-label">
+                        <span class="db-row-dot"></span>
+                        <div>
+                          Desarrollo Web
+                          <div class="db-row-meta">3 proyectos en curso</div>
+                        </div>
+                      </div>
+                      <span class="db-row-val">S/ 48,500</span>
+                    </div>
+                    <div class="db-row">
+                      <div class="db-row-label">
+                        <span class="db-row-dot"></span>
+                        <div>
+                          Automatización
+                          <div class="db-row-meta">5 flujos activos</div>
+                        </div>
+                      </div>
+                      <span class="db-row-val">S/ 22,150</span>
+                    </div>
+                    <div class="db-row">
+                      <div class="db-row-label">
+                        <span class="db-row-dot warn"></span>
+                        <div>
+                          Importación HW
+                          <div class="db-row-meta">Lote en tránsito</div>
+                        </div>
+                      </div>
+                      <span class="db-row-val">S/ 73,820</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Recent activity -->
+                <div class="db-section-title">Actividad reciente</div>
+                <table class="db-table">
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Descripción</th>
+                      <th>Monto</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>16 May 2026</td>
+                      <td>Importación · Laptops ASUS TUF Gaming</td>
+                      <td class="db-amount-neg">−S/ 18,450.00</td>
+                      <td><span class="db-status pending">Pendiente</span></td>
+                    </tr>
+                    <tr>
+                      <td>14 May 2026</td>
+                      <td>Pago cliente · Sistema POS a medida</td>
+                      <td class="db-amount-pos">+S/ 32,000.00</td>
+                      <td><span class="db-status done">Completado</span></td>
+                    </tr>
+                    <tr>
+                      <td>12 May 2026</td>
+                      <td>Agente IA · Implementación call center</td>
+                      <td class="db-amount-pos">+S/ 14,750.00</td>
+                      <td><span class="db-status done">Completado</span></td>
+                    </tr>
+                    <tr>
+                      <td>10 May 2026</td>
+                      <td>Suscripción · Automatización mensual</td>
+                      <td class="db-amount-pos">+S/ 2,890.00</td>
+                      <td><span class="db-status done">Completado</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </main>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+  // Generate sound-wave bars dynamically with randomized heights & animation timing
+  (function generateWaveBars() {
+    const wave = document.getElementById('wave-bars');
+    if (!wave) return;
+    const N = 56;
+    // Use a smooth envelope so bars feel like a real waveform (high in middle, lower edges)
+    const heights = [];
+    for (let i = 0; i < N; i++) {
+      const t = i / (N - 1);
+      const envelope = Math.sin(t * Math.PI);              // 0..1..0
+      const detail   = 0.55 + 0.45 * Math.sin(i * 0.9) * Math.cos(i * 0.4);
+      const h = Math.max(0.18, envelope * detail);
+      heights.push(h);
+    }
+    const frag = document.createDocumentFragment();
+    heights.forEach((h, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'db-wave-bar';
+      bar.style.height = (h * 100) + '%';
+      // Stagger animation so the wave appears to travel
+      bar.style.animationDelay = (i * 0.04) + 's';
+      bar.style.animationDuration = (1.4 + (i % 5) * 0.1) + 's';
+      frag.appendChild(bar);
+    });
+    wave.appendChild(frag);
+  })();
+</script>
+
+</body>
+</html>
