@@ -1,0 +1,58 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crm_colegio_app
+    restart: unless-stopped
+    env_file:
+      - ${CRM_ENV_FILE:-.env}
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - crm_colegio
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: crm_colegio_web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${CRM_INTERNAL_WEB_PORT:-18084}:80"
+    volumes:
+      - ./:/var/www/html:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - crm_colegio
+
+  db:
+    image: mariadb:11.4
+    container_name: crm_colegio_db
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - crm_colegio_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - crm_colegio
+
+networks:
+  crm_colegio:
+    name: crm_colegio_network
+    driver: bridge
+
+volumes:
+  crm_colegio_db_data:
+    name: crm_colegio_db_data

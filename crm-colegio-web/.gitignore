@@ -1,0 +1,57 @@
+# Dependencies
+/vendor
+/node_modules
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!.env.demo.example
+!.env.production.example
+auth.json
+*.key
+
+# Laravel generated files
+/public/build
+/public/hot
+/public/storage
+/bootstrap/cache/*
+!/bootstrap/cache/.gitkeep
+/storage/*.key
+/storage/app/*
+!/storage/app/.gitkeep
+!/storage/app/public
+!/storage/app/backups
+/storage/app/public/*
+!/storage/app/public/.gitkeep
+/storage/app/backups/*
+!/storage/app/backups/.gitkeep
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+!/storage/framework/cache/data
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Test and tool caches
+.phpunit.result.cache
+/.phpunit.cache
+/coverage
+
+# Local editor and OS files
+/.fleet
+/.idea
+/.vscode
+.DS_Store
+Thumbs.db
+
+# Local deploy artifacts
+*.tgz
+*.tar.gz
+*.zip
+deploy-*.log
