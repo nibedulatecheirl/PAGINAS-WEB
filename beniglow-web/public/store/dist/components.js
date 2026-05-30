@@ -595,7 +595,7 @@ function ProductCard({
   }, product.brand), /*#__PURE__*/React.createElement("p", {
     className: "font-serif text-lg text-[color:var(--olive)] tabular-nums"
   }, product.price)), /*#__PURE__*/React.createElement("h3", {
-    className: "font-serif text-xl text-[color:var(--coffee)] leading-snug"
+    className: "product-card-title font-serif text-xl leading-snug"
   }, product.name), /*#__PURE__*/React.createElement("ul", {
     className: "space-y-1.5 mt-1"
   }, product.benefits.map(b => /*#__PURE__*/React.createElement("li", {

@@ -432,7 +432,7 @@ function ProductCard({ product, onDetail, onAddToCart }) {
           </p>
           <p className="font-serif text-lg text-[color:var(--olive)] tabular-nums">{product.price}</p>
         </div>
-        <h3 className="font-serif text-xl text-[color:var(--coffee)] leading-snug">
+        <h3 className="product-card-title font-serif text-xl leading-snug">
           {product.name}
         </h3>
         <ul className="space-y-1.5 mt-1">
