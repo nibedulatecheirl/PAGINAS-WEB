@@ -21,10 +21,10 @@ docker compose exec -T db mariadb-dump \
   "$DB_DATABASE" | gzip > "$BACKUP_DIR/colegio_crm-$STAMP.sql.gz"
 
 tar -czf "$BACKUP_DIR/crm_colegio_files-$STAMP.tar.gz" \
+  --exclude="public/index.php" \
   .env \
   storage/app \
-  public \
-  --exclude="public/index.php"
+  public
 
 find "$BACKUP_DIR" -type f -mtime +14 -delete
 
